@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 
-public class UserModel{
+public class UserModel implements IPenalty{
 
     private Long id;
 
@@ -19,8 +19,6 @@ public class UserModel{
     private boolean isAdmin;
 
     private boolean isBanned;
-
-    private boolean skipped;
 
     public LocalDate getBanUntil() {
         return banUntil;
@@ -108,11 +106,31 @@ public class UserModel{
         this.enabled = enabled;
     }
 
-    public boolean isSkipped() {
-        return skipped;
+    public UserModel(Long id, String firstName, String lastName, String email, boolean isBanned, boolean enabled, ArrayList<String> penalties) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.isBanned = isBanned;
+        this.enabled = enabled;
+        this.penalties = penalties;
     }
 
-    public void setSkipped(boolean skipped) {
-        this.skipped = skipped;
+    @Override
+    public void addPenalty(String penalty) {
+        penalties.add(penalty);
+    }
+
+    @Override
+    public String toString() {
+        return "UserModel{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", isBanned=" + isBanned +
+                ", enabled=" + enabled +
+                ", penalties=" + penalties +
+                '}';
     }
 }
